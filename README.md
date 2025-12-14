@@ -31,27 +31,43 @@ streamlit run app.py
 
 ## Configuration / Setup
 
-### API Key Configuration
+### 🔑 API Key Configuration
 
-**Option 1: Streamlit Secrets (Recommended)**
+The app checks for your OpenAI API key in this order:
+1. `OPENAI_API_KEY` environment variable (highest priority)
+2. Streamlit secrets (`.streamlit/secrets.toml`)
 
-Create or edit `.streamlit/secrets.toml`:
+**Local Development - Method 1: Using Secrets File (Recommended)**
+
+1. Create or edit `.streamlit/secrets.toml`:
 ```toml
 openai_api_key = "sk-your-openai-api-key-here"
 ```
 
-**Option 2: Environment Variable**
+2. Run the app:
+```bash
+streamlit run app.py
+```
+
+**Local Development - Method 2: Using Environment Variable**
 
 ```bash
 export OPENAI_API_KEY="sk-your-openai-api-key-here"
 streamlit run app.py
 ```
 
-**Option 3: Streamlit Cloud**
+**Streamlit Cloud Deployment**
 
-On Streamlit Cloud, go to your app's settings and add the secret:
-- **Name:** `openai_api_key`
-- **Value:** Your OpenAI API key
+1. Go to your deployed app on Streamlit Cloud
+2. Click **"Manage app"** (top right)
+3. Go to **Settings** → **Secrets**
+4. Add your secret:
+```toml
+openai_api_key = "sk-your-openai-api-key-here"
+```
+5. Redeploy the app
+
+⚠️ **Important:** Never commit `.streamlit/secrets.toml` to git - it's in `.gitignore` for security!
 
 ## Examples / Exemples
 
