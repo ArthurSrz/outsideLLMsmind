@@ -29,6 +29,32 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## Configuration / Setup
+
+### API Key Configuration
+
+**Option 1: Streamlit Secrets (Recommended)**
+
+Create or edit `.streamlit/secrets.toml`:
+```toml
+openai_api_key = "sk-your-openai-api-key-here"
+```
+
+**Option 2: Environment Variable**
+
+```bash
+export OPENAI_API_KEY="sk-your-openai-api-key-here"
+streamlit run app.py
+```
+
+**Option 3: Streamlit Cloud**
+
+On Streamlit Cloud, go to your app's settings and add the secret:
+- **Name:** `openai_api_key`
+- **Value:** Your OpenAI API key
+
+## Examples / Exemples
+
 Posez une question simple comme / Ask a simple question like:
 - "Combien font 5 plus 3?" / "What is 5 plus 3?"
 - "Qu'est-ce qu'un nuage?" / "What is a cloud?"

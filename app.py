@@ -6,13 +6,9 @@ from streamlit_lottie import st_lottie
 # Import Langchain modules
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-# Streamlit UI Callback
 from langchain_community.callbacks.streamlit import StreamlitCallbackHandler
 from langgraph.prebuilt import create_react_agent
 
-import openai
 import sympy
 from ddgs import DDGS
 
@@ -21,16 +17,19 @@ from ddgs import DDGS
 import os
 import time
 
-# Try to get API key from databutton, fall back to environment variables
+# Try to get API key from Streamlit secrets, fall back to databutton, then environment variables
 try:
-    OPENAI_API_KEY = db.secrets.get(name="OPENAI_API")
+    OPENAI_API_KEY = st.secrets["openai_api_key"]
 except Exception:
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    try:
+        OPENAI_API_KEY = db.secrets.get(name="OPENAI_API")
+    except Exception:
+        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if OPENAI_API_KEY:
     os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 else:
-    st.error("⚠️ OPENAI_API_KEY not found. Please set the environment variable or configure databutton secrets.")
+    st.error("⚠️ OPENAI_API_KEY not found. Please configure it in Streamlit secrets, databutton secrets, or set the OPENAI_API_KEY environment variable.")
 
 
 
