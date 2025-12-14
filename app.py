@@ -1,5 +1,4 @@
 # Import necessary libraries
-import databutton as db
 import streamlit as st
 from streamlit_lottie import st_lottie
 
@@ -17,19 +16,16 @@ from ddgs import DDGS
 import os
 import time
 
-# Try to get API key from Streamlit secrets, fall back to databutton, then environment variables
+# Try to get API key from Streamlit secrets, then environment variables
 try:
     OPENAI_API_KEY = st.secrets["openai_api_key"]
 except Exception:
-    try:
-        OPENAI_API_KEY = db.secrets.get(name="OPENAI_API")
-    except Exception:
-        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if OPENAI_API_KEY:
     os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 else:
-    st.error("⚠️ OPENAI_API_KEY not found. Please configure it in Streamlit secrets, databutton secrets, or set the OPENAI_API_KEY environment variable.")
+    st.error("⚠️ OPENAI_API_KEY not found. Please configure it in Streamlit secrets or set the OPENAI_API_KEY environment variable.")
 
 
 
