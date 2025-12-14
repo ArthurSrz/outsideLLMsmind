@@ -16,40 +16,17 @@ from ddgs import DDGS
 import os
 import time
 
-# Try to get API key from multiple sources with priority
-OPENAI_API_KEY = None
+# Load OpenAI API key from environment or Streamlit secrets
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") or st.secrets.get("openai_api_key")
 
-# Priority 1: Direct environment variable
-if os.getenv("OPENAI_API_KEY"):
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-# Priority 2: Streamlit secrets
-elif "openai_api_key" in st.secrets:
-    OPENAI_API_KEY = st.secrets["openai_api_key"]
+if not OPENAI_API_KEY:
+    st.error(
+        "⚠️ OPENAI_API_KEY not found! "
+        "Please add it to Streamlit Cloud Secrets or set the OPENAI_API_KEY environment variable."
+    )
+    st.stop()
 
-# Set it in environment if found
-if OPENAI_API_KEY:
-    os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-else:
-    st.error("""
-    ⚠️ **OPENAI_API_KEY not found!**
-    
-    Please configure your API key in one of these ways:
-    
-    **Local Development:**
-    1. Create `.streamlit/secrets.toml` with:
-       ```
-       openai_api_key = "sk-your-key-here"
-       ```
-    2. OR set environment variable:
-       ```
-       export OPENAI_API_KEY="sk-your-key-here"
-       ```
-    
-    **Streamlit Cloud:**
-    1. Go to your app settings
-    2. Click "Secrets"
-    3. Add: `openai_api_key = "sk-your-key-here"`
-    """)
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 
 
