@@ -30,7 +30,7 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 
 
-st.title("🤖 Qu'est-ce qu'un Agent?")
+st.title("🤖 Qu'est-ce qu'un agent?")
 st.lottie("https://lottie.host/5db2cb4f-6dbb-4a39-b2e2-d7eca7dc2989/SeQeMwtKCR.json")
 st.markdown("""
 ### Bonjour! 👋
